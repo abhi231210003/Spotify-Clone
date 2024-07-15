@@ -1,4 +1,4 @@
-@media (max-width:1200px){
+@media (max-width:1000px){
     .left{
         position: absolute;
         left: -120%;
@@ -28,10 +28,10 @@
         width: 100vw;
     }
     .playbar{
-        width: calc(100vw-105px);
+        width: 90vw;
     }
     .seekbar{
-        width: calc(100vw-120px);
+        width: 90vw;
     }
     .hamburger{
         display: block;
@@ -40,7 +40,7 @@
         margin: 0;
     }
     .card{
-        width: 55vw;
+        width: 25vw;
     }
     .cardcontainer{
         margin: 0;
@@ -60,7 +60,7 @@
 }
 @media (max-width:500px){
     .card{
-        width: auto;
+        width: 75vw;
     }
     .cardContainer{
         display: flex;
