@@ -58,7 +58,6 @@ async function getSongs(folder) {
 
 const playMusic = (track, pause = false) => {
   //let audio = new Audio("/songs/" + track);
-  console.log(track.replaceAll("%20"," ").replace(".mp3",""));
   if(track.endsWith('.mp3')){
     currentSong.src = `/${currFolder}/${track}`;
   }else{
@@ -126,7 +125,7 @@ async function displayAlbums() {
 
 async function main() { 
   //get list of all songs
-  await getSongs("songs/devotional");
+  await getSongs("/songs/devotional");
   playMusic(songs[0], true);
 
   //display all the albums on page
