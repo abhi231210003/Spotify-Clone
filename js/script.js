@@ -38,11 +38,10 @@ async function getSongs(folder) {
     songUL.innerHTML =songUL.innerHTML +`<li>
                 <img class="invert" src="images/music.svg" alt="">
                 <div class="info">
-                  <div >${song.replaceAll("%20"," ").replaceAll("(PagalWorld.com.sb).mp3","")} </div>
+                  <div >${song.replaceAll("%20"," ").replaceAll(".mp3","")} </div>
                   <div ></div>
                 </div>
                 <div class="playnow">
-                  <span>Play Now</span>
                   <img class="invert" src="images/play.svg" alt="">
                 </div></li>`;
   }
@@ -51,7 +50,6 @@ async function getSongs(folder) {
     document.querySelector(".songList").getElementsByTagName("li")
   ).forEach((e) => {
     e.addEventListener("click", (element) => {
-      console.log(e.querySelector(".info").firstElementChild.innerHTML);
       playMusic(e.querySelector(".info").firstElementChild.innerHTML.trim());
     });
   });
@@ -60,14 +58,20 @@ async function getSongs(folder) {
 
 const playMusic = (track, pause = false) => {
   //let audio = new Audio("/songs/" + track);
-  currentSong.src = `/${currFolder}/` + track;
+  console.log(track.replaceAll("%20"," ").replace(".mp3",""));
+  if(track.endsWith('.mp3')){
+    currentSong.src = `/${currFolder}/${track}`;
+  }else{
+    currentSong.src = `/${currFolder}/${track}.mp3`;
+  }
+  console.log(currentSong.src);
   if (!pause) {
     currentSong.play();
     play.src = "images/pause.svg";
   }
-  document.querySelector(".songinfo").innerHTML = decodeURI(track);
+  document.querySelector(".songinfo").innerHTML = track.replaceAll("%20"," ").replace(".mp3","");
   document.querySelector(".songtime").innerHTML = "00:00/00:00";
-};
+};  
 
 async function displayAlbums() {
   let a = await fetch(`${window.location.origin}/songs/`);
@@ -120,9 +124,9 @@ async function displayAlbums() {
   })
 }
 
-async function main() {
+async function main() { 
   //get list of all songs
-  await getSongs("songs/animal");
+  await getSongs("songs/devotional");
   playMusic(songs[0], true);
 
   //display all the albums on page
@@ -144,14 +148,14 @@ async function main() {
     document.querySelector(".songtime").innerHTML = `${secondsToMinutesSeconds(
       currentSong.currentTime
     )} / ${secondsToMinutesSeconds(currentSong.duration)}`;
-    document.querySelector(".circle").style.left =
+    document.querySelector(".traversed").style.width =
       (currentSong.currentTime / currentSong.duration) * 100 + "%";
   });
 
   //Add an event listener to seekbar
   document.querySelector(".seekbar").addEventListener("click", (e) => {
     let percent = (e.offsetX / e.target.getBoundingClientRect().width) * 100;
-    document.querySelector(".circle").style.left = percent + "%";
+    document.querySelector(".traversed").style.width = percent + "%";
     currentSong.currentTime = (currentSong.duration * percent) / 100;
   });
 
