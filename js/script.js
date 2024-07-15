@@ -125,7 +125,7 @@ async function displayAlbums() {
 
 async function main() { 
   //get list of all songs
-  await getSongs("/songs/devotional");
+  await getSongs("songs/devotional");
   playMusic(songs[0], true);
 
   //display all the albums on page
