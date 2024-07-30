@@ -45,6 +45,7 @@ async function getSongs(folder) {
                   <img class="invert" src="images/play.svg" alt="">
                 </div></li>`;
   }
+  document.querySelector(".playlistname").innerHTML=folder.replace("songs/","")
   //Attach an event listener to each song
   Array.from(
     document.querySelector(".songList").getElementsByTagName("li")
@@ -58,16 +59,19 @@ async function getSongs(folder) {
 
 const playMusic = (track, pause = false) => {
   //let audio = new Audio("/songs/" + track);
+  console.log(track.replaceAll("%20"," ").replace(".mp3",""));
   if(track.endsWith('.mp3')){
     currentSong.src = `/${currFolder}/${track}`;
   }else{
     currentSong.src = `/${currFolder}/${track}.mp3`;
   }
   console.log(currentSong.src);
+  console.log(currFolder)
   if (!pause) {
     currentSong.play();
     play.src = "images/pause.svg";
   }
+  document.querySelector(".coverimg").src=`${currFolder}/cover.jpeg`;
   document.querySelector(".songinfo").innerHTML = track.replaceAll("%20"," ").replace(".mp3","");
   document.querySelector(".songtime").innerHTML = "00:00/00:00";
 };  
@@ -125,8 +129,7 @@ async function displayAlbums() {
 
 async function main() { 
   //get list of all songs
-  await getSongs("songs/devotional");
-  console.log(songs);
+  await getSongs(`songs/devotional`);
   playMusic(songs[0], true);
 
   //display all the albums on page
