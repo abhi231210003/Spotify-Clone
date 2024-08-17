@@ -19,7 +19,7 @@ function secondsToMinutesSeconds(seconds) {
 
 async function getSongs(folder) {
   currFolder = folder;
-  let a = await fetch(`${folder}/`);
+  let a = await fetch(`${window.location.origin}/${folder}/`);
   let response = await a.text();
   let div = document.createElement("div");
   div.innerHTML = response;
@@ -77,7 +77,7 @@ const playMusic = (track, pause = false) => {
 };  
 
 async function displayAlbums() {
-  let a = await fetch(`songs/`);
+  let a = await fetch(`${window.location.origin}/songs/`);
   let response = await a.text();
   let div = document.createElement("div");
   div.innerHTML = response;
@@ -89,8 +89,7 @@ async function displayAlbums() {
     if (e.href.includes("/songs/") && !e.href.includes()) {
       let folder = e.href.split("/").slice(-1)[0];
       //get meta data of folder
-      console.log("folder is ::"+folder)
-      let a = await fetch(`songs/${folder}/info.json`);
+      let a = await fetch(`${window.location.origin}/songs/${folder}/info.json`);
       let response = await a.json();
       cardContainer.innerHTML =cardContainer.innerHTML +
         `<div data-folder="${folder}" class="card">
@@ -110,7 +109,7 @@ async function displayAlbums() {
                 </svg>
               </div>
               <img
-                src="songs/${folder}/cover.jpeg"
+                src="${window.location.origin}/songs/${folder}/cover.jpeg"
                 alt=""
               />
               <h2>${response.title}</h2>
