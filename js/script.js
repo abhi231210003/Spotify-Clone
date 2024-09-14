@@ -28,7 +28,7 @@ async function getSongs(folder) {
   for (let index = 0; index < as.length; index++) {
     const element = as[index];
     if (element.href.endsWith(".mp3")) {
-      songs.push(element.href.split(`${window.location.origin}/${folder}/`)[1]);
+      songs.push(element.href.split(`/${folder}/`)[1]);
     }
   }
   //show all songs in playlist
@@ -61,9 +61,9 @@ const playMusic = (track, pause = false) => {
   //let audio = new Audio("/songs/" + track);
   console.log(track.replaceAll("%20"," ").replace(".mp3",""));
   if(track.endsWith('.mp3')){
-    currentSong.src = `${window.location.origin}/${currFolder}/${track}`;
+    currentSong.src = `/${currFolder}/${track}`;
   }else{
-    currentSong.src = `${window.location.origin}/${currFolder}/${track}.mp3`;
+    currentSong.src = `/${currFolder}/${track}.mp3`;
   }
   console.log(currentSong.src);
   console.log(currFolder)
@@ -71,7 +71,7 @@ const playMusic = (track, pause = false) => {
     currentSong.play();
     play.src = "images/pause.svg";
   }
-  document.querySelector(".coverimg").src=`${window.location.origin}/${currFolder}/cover.jpeg`;
+  document.querySelector(".coverimg").src=`${currFolder}/cover.jpeg`;
   document.querySelector(".songinfo").innerHTML = track.replaceAll("%20"," ").replace(".mp3","");
   document.querySelector(".songtime").innerHTML = "00:00/00:00";
 };  
